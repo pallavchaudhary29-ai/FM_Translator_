@@ -394,7 +394,10 @@ def translate_pdf_task(task_id, input_path, output_path, original_filename):
                 bbox = item["bbox"]
                 page.add_redact_annot(bbox, fill=None)
                 
-            page.apply_redactions()
+            page.apply_redactions(
+                images=fitz.PDF_REDACT_IMAGE_NONE,
+                graphics=fitz.PDF_REDACT_LINE_ART_NONE
+            )
             
             # 6. Insert translated Hindi text boxes
             for idx, item in enumerate(page_elements):
