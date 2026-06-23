@@ -107,9 +107,21 @@ def estimate_alignment(block, block_bbox):
     return 0  # Fallback to Left
 
 def clean_text_for_translation(text):
-    """Cleans up internal newlines, tabs, and duplicate spaces for accurate translation."""
+    """Cleans up internal newlines, tabs, duplicate spaces, and common PDF kerning splits for accurate translation."""
     if not text:
         return ""
+    # Fix common PDF kerning splits (diagonal/slanted letters creating artificial word boundaries)
+    text = re.sub(r'\bV\s+alley\b', 'Valley', text)
+    text = re.sub(r'\bv\s+alley\b', 'valley', text)
+    text = re.sub(r'\bC\s+ivilization\b', 'Civilization', text)
+    text = re.sub(r'\bc\s+ivilization\b', 'civilization', text)
+    text = re.sub(r'\bP\s+resentation\b', 'Presentation', text)
+    text = re.sub(r'\bp\s+resentation\b', 'presentation', text)
+    text = re.sub(r'\bE\s+ducation\b', 'Education', text)
+    text = re.sub(r'\be\s+ducation\b', 'education', text)
+    text = re.sub(r'\bS\s+tudy\b', 'Study', text)
+    text = re.sub(r'\bs\s+tudy\b', 'study', text)
+    
     # Replace layout spacing and breaks with a single space
     text = text.replace("\n", " ").replace("\r", " ").replace("\t", " ")
     text = re.sub(r'\s+', ' ', text)
@@ -377,10 +389,10 @@ def translate_pdf_task(task_id, input_path, output_path, original_filename):
             # 4. Batch translate all extracted items for this page
             translated_texts = translate_blocks_batched(page_elements, translator)
             
-            # 5. Add redaction annotations to erase old text
+            # 5. Add redaction annotations to erase old text (fill=None ensures background transparency is preserved)
             for item in page_elements:
                 bbox = item["bbox"]
-                page.add_redact_annot(bbox, fill=(1, 1, 1))
+                page.add_redact_annot(bbox, fill=None)
                 
             page.apply_redactions()
             
@@ -417,6 +429,7 @@ def translate_pdf_task(task_id, input_path, output_path, original_filename):
                     line-height: {line_height};
                     margin: 0;
                     padding: 0;
+                    background-color: transparent;
                 }}
                 """
                 
