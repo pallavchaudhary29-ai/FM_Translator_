@@ -1,5 +1,5 @@
 Flask==3.0.3
-pymupdf==1.24.5
+PyMuPDF==1.26.3
 deep-translator==1.11.4
 gunicorn==22.0.0
 requests==2.32.3
