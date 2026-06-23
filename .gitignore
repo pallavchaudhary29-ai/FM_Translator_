@@ -1,0 +1,21 @@
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# User uploads & translated outputs (crucial to ignore to avoid uploading huge files)
+uploads/
+outputs/
+scratch/
+
+static/fonts/NotoSansDevanagari-Regular.ttf
+
+instance/
+.pytest_cache/
+.DS_Store

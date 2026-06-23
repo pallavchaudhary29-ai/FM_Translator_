@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Document Translator - English to Hindi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="background-glow">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+    </div>
+
+    <main class="app-container">
+        <header class="app-header">
+            <div class="logo">
+                <span class="logo-icon">🌐</span>
+                <h1>TransPDF</h1>
+            </div>
+            <p class="tagline">Translate PDFs from English to Hindi while keeping the exact layout, font size, and spacing intact.</p>
+        </header>
+
+        <!-- Step 1: Upload Panel -->
+        <section id="upload-panel" class="glass-card active">
+            <div class="card-body">
+                <div id="drop-zone" class="drop-zone">
+                    <div class="drop-zone-content">
+                        <div class="upload-icon-wrapper">
+                            <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                            </svg>
+                        </div>
+                        <h3>Drag & Drop your PDF here</h3>
+                        <p class="file-spec">Support PDF files up to 100MB</p>
+                        <div class="divider">
+                            <span>or</span>
+                        </div>
+                        <label for="file-input" class="btn btn-primary">Browse Files</label>
+                        <input type="file" id="file-input" accept=".pdf" style="display: none;">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Step 2: Progress Panel -->
+        <section id="progress-panel" class="glass-card">
+            <div class="card-body text-center">
+                <div class="processing-loader">
+                    <div class="spinner">
+                        <div class="double-bounce1"></div>
+                        <div class="double-bounce2"></div>
+                    </div>
+                </div>
+                
+                <h3 id="filename-display" class="filename-title">document.pdf</h3>
+                <p id="status-text" class="status-msg">Preparing document...</p>
+                
+                <div class="progress-bar-container">
+                    <div id="progress-bar-fill" class="progress-bar-fill" style="width: 0%"></div>
+                    <span id="progress-percent" class="progress-percent">0%</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Step 3: Result Panel -->
+        <section id="result-panel" class="glass-card">
+            <div class="card-body text-center">
+                <div class="success-icon-wrapper">
+                    <div class="success-ring"></div>
+                    <svg class="success-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                </div>
+                
+                <h3>Translation Complete!</h3>
+                <p class="success-msg">Your PDF has been successfully translated to Hindi with all formatting preserved.</p>
+                
+                <div class="button-group">
+                    <a id="download-btn" href="#" class="btn btn-success btn-large">
+                        <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                        Download Hindi PDF
+                    </a>
+                    <button id="translate-another-btn" class="btn btn-secondary">Translate Another File</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Error Dialog (Built-in) -->
+        <div id="error-alert" class="error-alert">
+            <span class="error-close-btn">&times;</span>
+            <div class="error-alert-content">
+                <strong>Error!</strong> <span id="error-message">Failed to process PDF.</span>
+            </div>
+        </div>
+    </main>
+
+    <footer class="app-footer">
+        <p>&copy; 2026 TransPDF. Built with ❤️ and layout-preserving technology.</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
